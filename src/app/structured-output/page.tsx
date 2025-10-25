@@ -1,6 +1,6 @@
 import Sidebar from '@/components/Sidebar';
 
-export default function Home() {
+export default function StructuredOutput() {
   return (
     <div className="flex min-h-screen">
       <Sidebar />
