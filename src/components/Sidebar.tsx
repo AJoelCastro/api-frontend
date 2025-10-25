@@ -3,8 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
-export default function Sidebar() {
-  const [isOpen, setIsOpen] = useState(true);
+export default function Sidebar({ onToggleSidebar, isOpen }: { onToggleSidebar: () => void, isOpen: boolean }) {
 
   const menuItems = [
     { name: 'Text Generation', path: '/text-generation' },
@@ -17,7 +16,7 @@ export default function Sidebar() {
     <>
       {/* Toggle button - Always visible */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={onToggleSidebar}
         className={`fixed top-4 z-50 p-2 rounded bg-neutral-700 text-white hover:bg-neutral-600 transition-all duration-300 ${
           isOpen ? 'left-60' : 'left-4'
         }`}
@@ -67,7 +66,7 @@ export default function Sidebar() {
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
-          onClick={() => setIsOpen(false)}
+          onClick={onToggleSidebar}
         />
       )}
     </>

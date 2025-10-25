@@ -4,10 +4,7 @@ import TextGenerationPage from "@/page-sections/text-generation";
 export default function TextGeneration() {
   return (
     <div className="flex min-h-screen">
-      <Sidebar />
-
       <TextGenerationPage/>
-
     </div>
   );
 }
