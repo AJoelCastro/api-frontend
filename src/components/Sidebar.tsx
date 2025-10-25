@@ -15,28 +15,29 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Toggle button for mobile */}
+      {/* Toggle button - Always visible */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 left-4 z-50 p-2 rounded bg-slate-800 text-white lg:hidden hover:bg-slate-700"
+        className={`fixed top-4 z-50 p-2 rounded bg-neutral-700 text-white hover:bg-neutral-600 transition-all duration-300 ${
+          isOpen ? 'left-60' : 'left-4'
+        }`}
       >
-        {isOpen ? '✕' : '☰'}
+        {isOpen ? '←' : '→'}
       </button>
 
       {/* Sidebar */}
       <aside
         className={`
-          fixed top-0 left-0 h-full bg-slate-900 border-r border-slate-700
-          text-slate-100 transition-transform duration-300 ease-in-out z-40
-          ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-          w-64
+          fixed top-0 left-0 h-full bg-neutral-900 border-r border-neutral-700
+          text-neutral-200 transition-all duration-300 ease-in-out z-40
+          ${isOpen ? 'translate-x-0 w-64' : '-translate-x-full w-64'}
         `}
       >
         <div className="p-6">
           <h1 className="text-xl font-semibold mb-1 text-white">
             OpenAI API
           </h1>
-          <p className="text-sm text-slate-400 mb-8">Dashboard</p>
+          <p className="text-sm text-neutral-400 mb-8">Dashboard</p>
 
           <nav>
             <ul className="space-y-1">
@@ -44,8 +45,8 @@ export default function Sidebar() {
                 <li key={item.path}>
                   <Link
                     href={item.path}
-                    className="block px-4 py-2.5 text-sm rounded hover:bg-slate-800 
-                             transition-colors duration-150"
+                    className="block px-4 py-2.5 text-sm rounded hover:bg-neutral-800 
+                             transition-colors duration-150 border-l-2 border-transparent hover:border-neutral-500"
                   >
                     {item.name}
                   </Link>
@@ -55,8 +56,8 @@ export default function Sidebar() {
           </nav>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-slate-800">
-          <p className="text-xs text-slate-500">
+        <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-neutral-800">
+          <p className="text-xs text-neutral-500">
             Powered by OpenAI
           </p>
         </div>
