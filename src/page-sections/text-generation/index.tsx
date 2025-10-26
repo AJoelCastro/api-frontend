@@ -20,6 +20,7 @@ const TextGenerationPage = () => {
 
     return (
         <SectionLayout>
+            <div className="bg-yellow-500">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input {...register("prompt")} />
                 <input type="submit" value="Generate" />
@@ -30,6 +31,7 @@ const TextGenerationPage = () => {
                     <p>{response.content[0]?.text}</p>
                 </div>
             )}
+            </div>
         </SectionLayout>
     );
 };

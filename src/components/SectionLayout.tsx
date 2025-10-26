@@ -17,11 +17,11 @@ export default function SectionLayout({ children, initialOpen = true }: Props) {
     <>
       <Sidebar isOpen={isOpen} onToggleSidebar={onToggleSidebar} />
       <div
-        className={`flex-1 transition-all duration-300 bg-slate-50 dark:bg-black ${
+        className={`transition-all duration-300 bg-slate-50 dark:bg-red-500 ${
           isOpen ? "ml-64" : "ml-0"
         }`}
       >
-        <div className="p-6">{children}</div>
+        <div className="p-6 bg-white">{children}</div>
       </div>
     </>
   );

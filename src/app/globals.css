@@ -24,3 +24,13 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+html, body, #__next {
+  height: 100%;
+}
+
+/* Remove default body margin so full-width layouts work as expected */
+body {
+  margin: 0;
+  min-height: 100vh;
+}
