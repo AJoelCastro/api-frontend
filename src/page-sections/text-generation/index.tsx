@@ -91,7 +91,7 @@ const TextGenerationPage = () => {
                                 {...register("maxTokens", { valueAsNumber: true })}
                                 className="w-full rounded-md border border-gray-200 p-2"
                                 min={16}
-                                max={1000}
+                                max={3000}
                             />
                         </div>
                     </div>
@@ -129,7 +129,6 @@ const TextGenerationPage = () => {
 
                 {response && (
                     <div className="mt-6 p-4 bg-white dark:bg-black rounded-lg shadow">
-                        <h2 className="text-lg font-medium mb-2">Generated Text</h2>
                         <pre className="whitespace-pre-wrap text-gray-800 dark:text-white">{response.content?.[0]?.text ?? JSON.stringify(response)}</pre>
                     </div>
                 )}

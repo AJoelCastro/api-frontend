@@ -7,7 +7,7 @@ const StructuredOutputsPage = () => {
     return (
         <>
         <SectionLayout>
-            {/* Structured Outputs content goes here */}
+            
         </SectionLayout>
         </>
     )
