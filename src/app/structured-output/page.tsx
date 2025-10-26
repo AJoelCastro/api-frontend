@@ -1,12 +1,10 @@
 import Sidebar from '@/components/Sidebar';
+import StructuredOutputsPage from '@/page-sections/structured-outputs';
 
 export default function StructuredOutput() {
   return (
     <div className="flex min-h-screen">
-      <Sidebar />
-      
-      <main className="flex-1 transition-all duration-300 bg-slate-50">
-      </main>
+      <StructuredOutputsPage/>
     </div>
   );
 }
