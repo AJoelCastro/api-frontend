@@ -1,12 +1,11 @@
 "use client";
-import Sidebar from "@/components/Sidebar";
 import TextGenerationService from "@/services/TextGeneration";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import SectionLayout from "@/components/SectionLayout";
 
 const TextGenerationPage = () => {
     const [response, setResponse] = useState<any>(null);
-    const [isOpen, setIsOpen] = useState(true);
     const { register, handleSubmit } = useForm();
 
     const onSubmit = async (data: any) => {
@@ -17,29 +16,22 @@ const TextGenerationPage = () => {
         } catch (error) {
             console.error(error);
         }
-    }
-    const onToggleSidebar = useCallback(() => {
-        setIsOpen((prev) => !prev);
-    }, []);
-    return (
-        <>
-            <Sidebar isOpen={isOpen} onToggleSidebar={onToggleSidebar}/>
-            <div className={`flex-1 transition-all duration-300 bg-slate-50 dark:bg-black ${
-            isOpen ? "ml-64" : "ml-0"
-            }`}>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <input {...register("prompt")} />
-                    <input type="submit" value="Generate" />
-                </form>
-                {response && (
-                    <div>
-                        <h2>Generated Text:</h2>
-                        <p>{response.content[0]?.text}</p>
-                    </div>
-                )}
-            </div>
-        </>
+    };
 
-    )
-}
+    return (
+        <SectionLayout>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <input {...register("prompt")} />
+                <input type="submit" value="Generate" />
+            </form>
+            {response && (
+                <div>
+                    <h2>Generated Text:</h2>
+                    <p>{response.content[0]?.text}</p>
+                </div>
+            )}
+        </SectionLayout>
+    );
+};
+
 export default TextGenerationPage;
