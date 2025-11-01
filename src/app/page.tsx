@@ -1,12 +1,12 @@
-import Sidebar from '@/components/Sidebar';
+import SectionLayout from '@/components/SectionLayout';
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen">
-      <Sidebar />
-      
-      <main className="flex-1 transition-all duration-300 bg-slate-50">
-      </main>
-    </div>
+    <SectionLayout>
+      <div className="max-w-3xl mx-auto p-6">
+        <h1 className="text-2xl font-semibold">OpenAI API Explorer</h1>
+        <p className="text-sm text-gray-600 mt-2">Select a tool from the sidebar.</p>
+      </div>
+    </SectionLayout>
   );
 }
