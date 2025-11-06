@@ -45,5 +45,14 @@ const AudioSpeechService = {
                 return new WebSocket(path);
             }
         },
+        createSession: async () => {
+            try {
+                const response = await axios.post(`${API_URL}/openai/audio-speech/session`);
+                return response.data; // Expecting { client_secret: { value: "..." } }
+            } catch (error) {
+                console.error('Error creating session:', error);
+                throw error;
+            }
+        }
 };
 export default AudioSpeechService;

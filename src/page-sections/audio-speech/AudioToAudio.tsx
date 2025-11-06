@@ -1,3 +1,4 @@
+import AudioSpeechService from "@/services/AudioSpeech";
 import React, { useRef, useState } from "react";
 
 const AudioToAudio: React.FC = () => {
@@ -13,9 +14,8 @@ const AudioToAudio: React.FC = () => {
     try {
       setStatus("connecting");
 
-      const response = await fetch("/api/session", { method: "POST" });
-      const data = await response.json();
-
+      const data = await AudioSpeechService.createSession();
+      console.log(data.toJsonString());
       const pc = new RTCPeerConnection();
 
       // 🔈 Reproducir el audio remoto
