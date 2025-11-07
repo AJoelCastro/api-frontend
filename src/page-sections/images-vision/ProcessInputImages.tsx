@@ -1,12 +1,7 @@
 "use client";
 import React from "react";
 
-/**
- * ProcessInputImages
- *
- * UI-only component for handling input images in the Images & Vision section.
- * Contains a file selector and placeholders to show selected images. No logic included.
- */
+
 const ProcessInputImages: React.FC = () => {
   return (
     <section>
