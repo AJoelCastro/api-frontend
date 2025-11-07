@@ -15,7 +15,7 @@ const AudioToAudio: React.FC = () => {
       setStatus("connecting");
 
       const data = await AudioSpeechService.createSession();
-      console.log(data.toJsonString());
+      console.log(data);
       const pc = new RTCPeerConnection();
 
       // 🔈 Reproducir el audio remoto
