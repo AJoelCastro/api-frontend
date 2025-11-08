@@ -1,17 +1,33 @@
 "use client";
-import React from "react";
+import ImagesVisionService from "@/services/ImagesVision";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 
 const CreateImage: React.FC = () => {
 
   const {handleSubmit, register, reset, formState: { errors }} = useForm();
-  console.log("errors",errors);
-  const onSubmit = (data: any) => {
-    console.log("Form Data:", data);
-    // Here you would typically call the service to generate the image
-    
-  }
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit = async(data: any) => {
+    try{
+      setLoading(true);
+      setImageUrl(null);
+      const response = await ImagesVisionService.generateImage(data);
+      console.log("Image generated:", response);
+      const imageData = response.data?.[0];
+      if (imageData?.b64_json) {
+        setImageUrl(`data:image/png;base64,${imageData.b64_json}`);
+      } else if (imageData?.url) {
+        setImageUrl(imageData.url);
+      }
+    } catch (error) {
+      console.error("Error generating image:", error);
+    } finally {
+      setLoading(false);
+    }
+  } 
 
   return (
     <section>
@@ -20,7 +36,7 @@ const CreateImage: React.FC = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <textarea
           rows={4}
-          {...register("prompt", { required: true})}
+          {...register("prompt", { required: 'Please enter a prompt' })}
           placeholder="Describe the image you want to create"
           className={`w-full rounded-md border p-3 ${
             errors.prompt ? "border-red-500" : "border-gray-200"
@@ -32,19 +48,34 @@ const CreateImage: React.FC = () => {
         <div className="flex gap-3 items-center">
           <button
             type="submit"
+            disabled={loading}
             className="px-4 py-2 bg-indigo-600 text-white rounded-md disabled:opacity-60"
           >
-            Generate
+            {loading ? "Generating..." : "Generate"}
           </button>
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="text-sm text-gray-600"
-            onClick={() => reset()}
+            onClick={() => {
+              reset();
+              setImageUrl(null);
+            }}
           >
             Reset
           </button>
         </div>
       </form>
+       {/* Mostrar imagen generada */}
+      {imageUrl && (
+        <div className="mt-6 text-center">
+          <p className="text-gray-700 mb-2">Generated Image:</p>
+          <img
+            src={imageUrl}
+            alt="Generated"
+            className="rounded-md shadow-md mx-auto max-w-full"
+          />
+        </div>
+      )}
     </section>
   );
 };

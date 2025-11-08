@@ -9,7 +9,7 @@ const TextGenerationPage = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
-    const { register, handleSubmit, reset, watch } = useForm<{
+    const { register, handleSubmit, reset, watch, formState: { errors } } = useForm<{
         prompt: string;
         model: string;
         temperature: number;
@@ -52,11 +52,14 @@ const TextGenerationPage = () => {
                         </label>
                         <textarea
                             id="prompt"
-                            {...register("prompt", { required: true })}
+                            {...register("prompt", { required: 'Please enter a prompt' })}
                             rows={2}
                             className="w-full rounded-lg border border-gray-200 p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none text-black dark:text-white bg-white dark:bg-black"
                             placeholder="Write a prompt to generate text (e.g. 'Write a short marketing blurb for a productivity app')"
                         />
+                        {errors.prompt && (
+                            <p className="mt-2 text-sm text-red-600">{errors.prompt.message}</p>
+                        )}
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
