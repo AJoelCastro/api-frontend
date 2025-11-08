@@ -72,7 +72,7 @@ const CreateImage: React.FC = () => {
           <img
             src={imageUrl}
             alt="Generated"
-            className="rounded-md shadow-md mx-auto max-w-full"
+            className="rounded-md shadow-md w-full max-w-md mx-auto"
           />
         </div>
       )}
