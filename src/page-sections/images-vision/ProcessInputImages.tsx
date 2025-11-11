@@ -15,7 +15,6 @@ const ProcessInputImages: React.FC = () => {
       setLoading(true);
       setAnalysisResult(null);
       const response = await ImagesVisionService.analyzeImage(data);
-      console.log("Image analysis:", response);
       // Extraer el texto del análisis de la respuesta
       const analysisText = response?.output?.[1]?.content?.[0]?.text || 
                            response?.data?.content?.[0]?.text ||
@@ -68,9 +67,9 @@ const ProcessInputImages: React.FC = () => {
       
       {/* Mostrar resultado del análisis */}
       {analysisResult && (
-        <div className="mt-6 bg-white p-4 rounded-md shadow">
+        <div className="mt-6 bg-gray-800 p-4 rounded-md shadow">
           <h3 className="font-medium mb-3 text-lg">Image Analysis Result</h3>
-          <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{analysisResult}</p>
+          <p className="text-whiteleading-relaxed whitespace-pre-wrap">{analysisResult}</p>
         </div>
       )}
     </section>
