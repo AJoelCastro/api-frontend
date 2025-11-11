@@ -41,8 +41,8 @@ const ProcessInputImages: React.FC = () => {
             errors.imageUrl ? "border-red-500" : "border-gray-200"
           }`}
         />
-        {errors.prompt && (
-          <p className="text-red-500 text-sm">{errors.prompt.message as string}</p>
+        {errors.imageUrl && (
+          <p className="text-red-500 text-sm">{errors.imageUrl.message as string}</p>
         )}
 
         <div className="flex gap-3 items-center">
