@@ -8,14 +8,22 @@ const ProcessInputImages: React.FC = () => {
 
   const {handleSubmit, register, reset, formState: { errors }} = useForm();
   const [loading, setLoading] = useState(false);
+  const [analysisResult, setAnalysisResult] = useState<string | null>(null);
 
   const onSubmit = async(data: any) => {
     try{
       setLoading(true);
+      setAnalysisResult(null);
       const response = await ImagesVisionService.analyzeImage(data);
-      console.log("Image generated:", response);
+      console.log("Image analysis:", response);
+      // Extraer el texto del análisis de la respuesta
+      const analysisText = response?.output?.[1]?.content?.[0]?.text || 
+                           response?.data?.content?.[0]?.text ||
+                           response?.text ||
+                           JSON.stringify(response);
+      setAnalysisResult(analysisText);
     } catch (error) {
-      console.error("Error generating image:", error);
+      console.error("Error analyzing image:", error);
     } finally {
       setLoading(false);
     }
@@ -58,6 +66,13 @@ const ProcessInputImages: React.FC = () => {
         </div>
       </form>
       
+      {/* Mostrar resultado del análisis */}
+      {analysisResult && (
+        <div className="mt-6 bg-white p-4 rounded-md shadow">
+          <h3 className="font-medium mb-3 text-lg">Image Analysis Result</h3>
+          <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{analysisResult}</p>
+        </div>
+      )}
     </section>
   );
 };
