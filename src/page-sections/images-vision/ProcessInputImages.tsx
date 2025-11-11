@@ -1,37 +1,63 @@
 "use client";
-import React from "react";
+import ImagesVisionService from "@/services/ImagesVision";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 
 const ProcessInputImages: React.FC = () => {
+
+  const {handleSubmit, register, reset, formState: { errors }} = useForm();
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit = async(data: any) => {
+    try{
+      setLoading(true);
+      const response = await ImagesVisionService.analyzeImage(data);
+      console.log("Image generated:", response);
+    } catch (error) {
+      console.error("Error generating image:", error);
+    } finally {
+      setLoading(false);
+    }
+  } 
+
   return (
     <section>
-      <p className="text-sm text-gray-600 mb-4">Select images from your computer to process.</p>
+      <p className="text-sm text-gray-600 mb-4">Select images from your computer to process or enter a URL Image.</p>
 
-      <form className="space-y-4">
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          className="block w-full text-sm text-gray-600"
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <textarea
+          rows={1}
+          {...register("imageUrl", { required: 'Please enter a URL image' })}
+          placeholder="https://openai-documentation.vercel.app/images/cat_and_otter.png"
+          className={`w-full rounded-md border p-3 ${
+            errors.imageUrl ? "border-red-500" : "border-gray-200"
+          }`}
         />
+        {errors.prompt && (
+          <p className="text-red-500 text-sm">{errors.prompt.message as string}</p>
+        )}
 
         <div className="flex gap-3 items-center">
           <button
-            type="button"
-            className="px-4 py-2 bg-green-600 text-white rounded-md disabled:opacity-60"
+            type="submit"
+            disabled={loading}
+            className="px-4 py-2 bg-indigo-600 text-white rounded-md disabled:opacity-60"
           >
-            Process
+            {loading ? "Loading..." : "Analyze Image"}
           </button>
-          <button type="button" className="text-sm text-gray-600">
+          <button
+            type="button"
+            className="text-sm text-gray-600"
+            onClick={() => {
+              reset();
+            }}
+          >
             Reset
           </button>
         </div>
       </form>
-
-      <div className="mt-4 bg-gray-800 p-4 rounded-md shadow">
-        <h3 className="font-medium mb-2">Selected Images</h3>
-        <div className="text-sm text-gray-500">No images selected (UI placeholder)</div>
-      </div>
+      
     </section>
   );
 };
